@@ -10,8 +10,7 @@ public class BasicController {
     @GetMapping("/date")
     @ResponseBody
     Date hello() {
-        Date a = new Date();
-        return a;
+        return new Date();
     }
 
     @GetMapping("/a")
