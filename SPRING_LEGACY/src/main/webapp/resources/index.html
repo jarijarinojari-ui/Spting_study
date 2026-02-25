@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch API 연습</title>
+    <style>
+        /* 시각적으로 구분하기 위한 간단한 스타일 */
+        #content-area {
+            width: 80%;
+            min-height: 100px;
+            margin: 20px 0;
+            padding: 15px;
+            border: 2px dashed #ccc;
+            background-color: #f9f9f9;
+        }
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>데이터 호출 예제</h1>
+    
+    <div id="content-area">
+        버튼을 누르면 이곳에 내용이 채워집니다.
+    </div>
+
+    <button id="load-btn">데이터 불러오기</button>
+
+    <script>
+        // 자바스크립트 로직 시작
+        const contentArea = document.getElementById('content-area');
+        const loadBtn = document.getElementById('load-btn');
+
+        loadBtn.addEventListener('click', () => {
+            contentArea.innerText = "서버에서 데이터를 가져오는 중...";
+
+            // 1. 주소에서 /test2/를 빼고 컨트롤러의 @GetMapping 경로만 적습니다.
+            fetch('http://localhost:8080/SPRING_LEGACY/test2/09') 
+                .then(response => {
+                    if (!response.ok) throw new Error("서버 응답 오류: " + response.status);
+                    return response.json(); // JSON 데이터를 파싱합니다.
+                })
+                .then(data => { // 인자 이름을 'data'로 통일하면 사용하기 편합니다.
+                    // 2. 템플릿 리터럴 문법($ 사용)과 변수명 확인
+                    let html = `이름: ${data.name}<br>`;
+                    html += `나이: ${data.age}`;
+                    
+                    // 3. 선언된 contentArea 변수에 결과 할당
+                    contentArea.innerHTML = html;
+                })
+                .catch(error => {
+                    console.error("에러:", error);
+                    contentArea.innerText = "데이터 로드 실패 (주소나 서버 코드를 확인하세요)";
+                });
+        });
+    </script>
+
+</body>
+</html>
