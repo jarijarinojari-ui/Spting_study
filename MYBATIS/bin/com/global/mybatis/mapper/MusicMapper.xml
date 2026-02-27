@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.global.mybatis.mapper.MusicMapper">
+  <select id="selectSysdate" resultType="java.util.Date">
+    SELECT SYSDATE
+    FROM DUAL
+  </select>
+  <select id="selectMusic" resultType="com.global.mybatis.dto.Music">
+  	SELECT MUSIC_NO
+  		,TITLE
+  		,VOCAL
+  		,CREATE_DATE
+  	FROM MUSIC
+  	
+  </select>
+  
+  <insert id="insertMusic" parameterType="com.global.mybatis.dto.Music">
+  	INSERT INTO MUSIC (
+  				MUSIC_NO
+  				, TITLE
+  				, VOCAL
+  	) VALUES (
+  		seq_music.nextval
+  		, #{title}
+  		, #{vocal}
+  	)
+  </insert>
+</mapper>
