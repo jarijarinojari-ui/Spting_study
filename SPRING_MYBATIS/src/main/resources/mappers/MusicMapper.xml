@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.global.spring.mapper.MusicMapper">
+
+    <select id="selectMusicList" resultType="com.global.spring.domain.Music">
+        SELECT MUSIC.MUSIC_NO
+		        ,MUSIC.TITLE
+		        ,MUSIC.VOCAL
+		        ,MUSIC_DETAIL.RELEASE_COMP
+		        ,MUSIC_DETAIL.RELEASE_DATE
+		        ,MUSIC_DETAIL.CREATE_DATE
+		FROM MUSIC
+		INNER JOIN MUSIC_DETAIL
+		ON MUSIC.MUSIC_NO = MUSIC_DETAIL.MUSIC_NO
+    </select>
+    
+        <select id="selectMusic" resultType="com.global.spring.domain.Music">
+        SELECT M.MUSIC_NO
+		        ,M.TITLE
+		        ,M.VOCAL
+		        ,M.CREATE_DATE
+		FROM MUSIC M
+    </select>
+    
+    <select id="selectMusicOne" parameterType="com.global.spring.domain.Music" 
+    							resultType="com.global.spring.domain.Music">
+        SELECT M.MUSIC_NO
+		        ,M.TITLE
+		        ,M.VOCAL
+		        ,M.CREATE_DATE
+		FROM MUSIC M
+		<where>
+			<if test="musicNo != null and musicNo != ''">
+				AND M.MUSIC_NO = #{musicNo}
+			</if>
+			<if test="title != null and title != ''">
+				AND M.TITLE LIKE '%'|| #{title} || '%'
+			</if>
+		</where>
+    </select>
+
+</mapper>
