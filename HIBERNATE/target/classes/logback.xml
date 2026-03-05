@@ -1,0 +1,23 @@
+<configuration>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} -- %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="org.hibernate" level="WARN"/>
+
+    <logger name="org.hibernate.SQL" level="DEBUG"/>
+    <logger name="org.hibernate.orm.jdbc.bind" level="TRACE"/>
+
+    <logger name="org.hibernate.HQL_FUNCTIONS" level="OFF"/>
+    <logger name="org.hibernate.orm.results.graph.AST" level="OFF"/>
+    <logger name="org.hibernate.orm.sql.ast.tree" level="OFF"/>
+    <logger name="org.hibernate.orm.sql.ast.create" level="OFF"/>
+    <logger name="org.hibernate.type.BasicTypeRegistry" level="OFF"/>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</configuration>
