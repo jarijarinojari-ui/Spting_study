@@ -1,0 +1,58 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /MUSIC_REST
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+spring:
+  application:
+    name: MUSIC_REST
+
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521:xe
+    username: MUSIC
+    password: TOWN
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        default_batch_fetch_size: 50
+        format_sql: true
+        dialect: org.hibernate.dialect.OracleDialect
+        default_schema: MUSIC
+    open-in-view: false
+
+    jackson:
+      date-format: yyyy-MM-dd HH:mm:ss
+      serialization:
+      write-dates-as-timestamps: false
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+    display-request-duration: true
+    try-it-out-enabled: true
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
